@@ -2,7 +2,7 @@
   div#canvas
     input(
       type="button"
-      value="add shape"
+      value="add circle shape"
       @click="addShape"
     )
     v-stage(:config="configKonva" ref="stage")
@@ -32,11 +32,6 @@ export default {
         width: CANVAS_WIDTH,
         height: CANVAS_HEIGHT
       },
-      configGroup: {
-        width: CANVAS_WIDTH,
-        height: CANVAS_HEIGHT,
-        draggable: true
-      },
       configText: {
         text: 'Some text here',
         x: 50,
@@ -56,9 +51,11 @@ export default {
       this.configText.text = 'Some text here';
     },
     addShape() {
-      const stage = this.$refs.stage.getStage();
-      const layers = stage.getLayers();
-      const layer = layers[0];
+      /** @sample access reference vue components */
+      // const stage = this.$refs.stage.getStage();
+      // const layers = stage.getLayers();
+      // const layer = layers[0];
+
       const circleConfig = {
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -68,12 +65,7 @@ export default {
         strokeWidth: Math.random() * 10,
         draggable: true
       };
-      console.log(this.$refs);
-      console.log(stage);
-      console.log(layer);
 
-      // layer.add(new Konva.Circle(circleConfig));
-      // layer.draw();
       this.circleList.push(circleConfig);
     }
   }
