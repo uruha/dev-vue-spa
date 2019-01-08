@@ -16,6 +16,7 @@
           v-for="item in circleList"
           :key="item.id"
           :config="item"
+          @dblclick="deleteShape(item)"
         )
 </template>
 
@@ -67,6 +68,14 @@ export default {
       };
 
       this.circleList.push(circleConfig);
+    },
+    deleteShape(item) {
+      console.log(item);
+      console.log(this);
+      // const deleteTarget = e.target;
+      // deleteTarget.destroy();
+      const target = this.circleList.indexOf(item);
+      this.circleList.splice(target, 1);
     }
   }
 };
