@@ -17,6 +17,8 @@
           :key="item.id"
           :config="item"
           @dblclick="deleteShape(item)"
+          @dragstart="handleDragStart"
+          @dragend="handleDragEnd"
         )
 </template>
 
@@ -48,8 +50,15 @@ export default {
     handleDragStart() {
       this.configText.text = 'dragging';
     },
-    handleDragEnd() {
+    handleDragEnd(e) {
       this.configText.text = 'Some text here';
+
+      // redraw moved shape postion
+      const shape = e.target;
+      const layer = this.$refs.layer.getNode();
+      const stage = this.$refs.stage.getNode();
+      shape.moveTo(layer);
+      stage.draw();
     },
     addShape() {
       /** @sample access reference vue components */
