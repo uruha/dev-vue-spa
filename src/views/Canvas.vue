@@ -1,10 +1,10 @@
 <template lang="pug">
   div#canvas
-    input(
-      type="button"
-      value="add circle shape"
-      @click="addShape"
-    )
+    div#options
+      el-button(
+        type="button"
+        @click="addShape"
+      ) add circl shape
     v-stage(:config="configKonva" ref="stage")
       v-layer(ref="layer")
         v-text(
@@ -20,6 +20,11 @@
           @dragstart="handleDragStart"
           @dragend="handleDragEnd"
         )
+    div#control
+      el-button(
+        type="button"
+        @click="saveCanvas"
+      ) save canvas
 </template>
 
 <script>
@@ -45,6 +50,12 @@ export default {
       },
       circleList: []
     };
+  },
+  created() {
+    console.log(this);
+  },
+  mounted() {
+    console.log(this.$el);
   },
   methods: {
     handleDragStart() {
@@ -85,6 +96,22 @@ export default {
       // deleteTarget.destroy();
       const target = this.circleList.indexOf(item);
       this.circleList.splice(target, 1);
+    },
+    saveCanvas() {
+      console.log('save start...');
+      const stage = this.$refs.stage.getStage();
+      const jsonData = stage.toJSON();
+      // const base64URL = stage.toDataURL();
+      // const base64Data = base64URL.split(',');
+
+      /** @sample konva の生成できるDATA */
+      console.log(`stage data: ${jsonData}`);
+      // console.log(`base64 URL: ${base64URL}`);
+      // console.log(`base64 Data: ${base64Data[1]}`);
+
+      /** @NOTE konva の生成するbase64はおそらく文字が多すぎてatobが使えない */
+      // const decode = decodeURIComponent(escape(window.atob(base64URL)));
+      // console.log(`decode base64: ${decode}`);
     }
   }
 };
