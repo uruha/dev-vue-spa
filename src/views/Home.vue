@@ -8,6 +8,8 @@
         | below
       el-button el-button
     HelloWorld(msg="Welcome to Vue.js App")
+    div
+      router-link(to="canvas") go canvas
 </template>
 
 <script>
